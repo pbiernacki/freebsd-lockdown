@@ -1,0 +1,27 @@
+---
+- name: 'Retrive list of all users'
+  command: "awk -F: '! /^#/{ print $1}' /etc/passwd"
+  register: users
+  changed_when: false
+  always_run: true
+
+- name: 'Retrive list of enabled inetd services'
+  command: "awk -F: '! /^#/{ print $1}' /etc/inetd.conf"
+  register: inetd_services
+  changed_when: false
+  always_run: true
+
+- name: 'Retrive list of enabled rc services'
+  shell: "service -e | awk -F/ '{print $NF}'"
+    warn: false
+  register: rc_services
+  changed_when: false
+  always_run: true
+
+- name: 'Check if inetd is running'
+  shell: "service inetd onestatus"
+    warn: false
+  register: inetd_running
+  changed_when: false
+  always_run: true
+  failed_when: "'does not exist' in inetd_running.stderr"

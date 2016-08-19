@@ -1,0 +1,14 @@
+---
+- name: '010 | AUDIT | rlogind should not exist on the system'
+  stat:
+    path: '/usr/libexec/rlogind'
+  always_run: yes
+  tags:
+    - audit
+
+- name: '010 | PATCH | rlogind should not exist on the system'
+  file:
+    path: '/usr/libexec/rlogind'
+    state: absent
+  tags:
+    - patch

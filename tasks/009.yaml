@@ -1,0 +1,19 @@
+---
+- name: '009 | AUDIT | rlogind should not be running'
+  command: true
+  when: inetd_services.stdout.find('login') != -1
+  changed_when: false
+  always_run: true
+  tags:
+    - audit
+
+- name: '009 | PATCH | rlogind should not be running'
+  replace:
+    dest: /etc/inetd.conf
+    regexp: '^(login.*)$'
+    replace: '#\1'
+  when:
+    - inetd_services.stdout.find('login') != -1
+  notify: 'Restart inetd'
+  tags:
+    - patch

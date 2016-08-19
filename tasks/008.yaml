@@ -1,0 +1,14 @@
+---
+- name: '008 | AUDIT | rshd should not exist on the system'
+  stat:
+    path: '/usr/libexec/rshd'
+  always_run: yes
+  tags:
+    - audit
+
+- name: '008 | PATCH | rshd should not exist on the system'
+  file:
+    path: '/usr/libexec/rshd'
+    state: absent
+  tags:
+    - patch

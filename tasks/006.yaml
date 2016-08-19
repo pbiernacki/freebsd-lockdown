@@ -1,0 +1,14 @@
+---
+- name: '006 | AUDIT | telnetd should not exist on the system'
+  stat:
+    path: '/usr/libexec/telnetd'
+  always_run: yes
+  tags:
+    - audit
+
+- name: '006 | PATCH | telnetd should not exist on the system'
+  file:
+    path: '/usr/libexec/telnetd'
+    state: absent
+  tags:
+    - patch

@@ -1,1 +1,16 @@
 ---
+- name: 'Check OS version and family'
+  fail:
+    msg: 'This role is only supported on FreeBSD 11+.  {{ ansible_distribution }} {{ ansible_distribution_release.split(".")[0] }} is not supported.'
+  when:
+    - ansible_distribution != 'FreeBSD'
+    - ansible_distribution_release.split('.')[0] | version_compare('11', '<')
+
+- name: 'Check Ansible version'
+  fail:
+    msg: 'This role is only supported with Ansible 2.1+'
+  when: not ansible_version.full | version_compare('2.1', '>=')
+
+- include: pre.yaml
+
+- include: actions.yaml

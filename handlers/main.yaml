@@ -1,1 +1,11 @@
 ---
+- name: 'Restart sshd'
+  service:
+    name: sshd
+    state: restarted
+
+- name: 'Restart inetd'
+  service:
+    name: inetd
+    state: restarted
+  when: inetd_running.rc == 0

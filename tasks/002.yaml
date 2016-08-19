@@ -1,0 +1,16 @@
+---
+- name: '002 | AUDIT | There should be no .rhosts files on the system'
+  stat:
+    path: '~{{ item }}/.rhosts'
+  with_items: '{{ users.stdout_lines }}'
+  always_run: yes
+  tags:
+    - audit
+
+- name: '002 | PATCH | There should be no .rhosts files on the system'
+  file:
+    path: '~{{ item }}/.rhosts'
+    state: absent
+  with_items: '{{ users.stdout_lines }}'
+  tags:
+    - patch

@@ -1,0 +1,16 @@
+---
+- name: '003 | AUDIT | Disallow logging in with empty password by PAM'
+  command: "grep nullok /etc/pam.d/* | awk -F: '{print $1}'"
+  register: pam_nullok
+  changed_when: false
+  always_run: true
+  tags:
+    - audit
+
+- name: '003 | PATCH | Disallow logging in with empty password by PAM'
+  replace:
+    dest: '{{ item }}'
+    regexp: nullok
+  with_items: '{{ pam_nullok }}'
+  tags:
+    - patch
