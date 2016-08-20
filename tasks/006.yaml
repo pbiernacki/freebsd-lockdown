@@ -3,6 +3,7 @@
   stat:
     path: '/usr/libexec/telnetd'
   always_run: yes
+  changed_when: false
   tags:
     - audit
 

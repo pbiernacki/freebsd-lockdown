@@ -1,0 +1,18 @@
+---
+- name: '028 | AUDIT | Unprivileged processes may not read the kernel message buffer'
+  command: "sysctl security.bsd.unprivileged_read_msgbuf | awk -F: '{print $2 }' "
+  register: unprivileged_read_msgbuf
+  changed_when: false
+  always_run: yes
+  tags:
+    - audit
+
+- name: '028 | PATCH | Unprivileged processes may not read the kernel message buffer'
+  sysctl:
+    name: 'security.bsd.unprivileged_read_msgbuf'
+    value: 0
+    state: present
+    reload: yes
+  when: '{{ unprivileged_read_msgbuf.stdout }} != 0'
+  tags:
+    - patch

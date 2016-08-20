@@ -1,0 +1,18 @@
+---
+- name: '029 | AUDIT | Unprivileged processes cannot create hard links to files owned by other users'
+  command: "sysctl security.bsd.hardlink_check_uid | awk -F: '{print $2 }' "
+  register: hardlink_check_uid
+  changed_when: false
+  always_run: yes
+  tags:
+    - audit
+
+- name: '029 | PATCH | Unprivileged processes cannot create hard links to files owned by other users'
+  sysctl:
+    name: 'security.bsd.hardlink_check_uid'
+    value: 1
+    state: present
+    reload: yes
+  when: '{{ hardlink_check_uid.stdout }} != 1'
+  tags:
+    - patch

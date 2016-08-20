@@ -1,0 +1,18 @@
+---
+- name: '026 | AUDIT | Disable sending IPv6 redirects'
+  command: "sysctl net.inet.ip6.redirect | awk -F: '{print $2 }' "
+  register: ip6_redirect
+  changed_when: false
+  always_run: yes
+  tags:
+    - audit
+
+- name: '026 | PATCH | Diable sending IPv6 redirects'
+  sysctl:
+    name: 'net.inet.ip6.redirect'
+    value: 0
+    state: present
+    reload: yes
+  when: '{{ ip6_redirect.stdout }} != 0'
+  tags:
+    - patch

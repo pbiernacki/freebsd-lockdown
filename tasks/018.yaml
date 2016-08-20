@@ -1,0 +1,18 @@
+---
+- name: '018 | AUDIT | System should not reply to multicast ICMP Echo Request and Timestamp packets'
+  command: "sysctl net.inet.icmp.bmcastecho | awk -F: '{print $2 }' "
+  register: bmcastecho
+  changed_when: false
+  always_run: yes
+  tags:
+    - audit
+
+- name: '018 | PATCH | System should not reply to multicast ICMP Echo Request and Timestamp packets'
+  sysctl:
+    name: 'net.inet.icmp.bmcastecho'
+    value: 0
+    state: present
+    reload: yes
+  when: '{{ bmcastecho.stdout }} != 0'
+  tags:
+    - patch

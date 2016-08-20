@@ -1,0 +1,18 @@
+---
+- name: '014 | AUDIT | The ctrl-alt-del key sequence should be disabled'
+  command: "sysctl kern.{{ kern_vty }}.kbd_reboot | awk -F: '{print $2 }' "
+  register: kbd_reboot
+  changed_when: false
+  always_run: yes
+  tags:
+    - audit
+
+- name: '014 | PATCH | The ctrl-alt-del key sequence should be disabled'
+  sysctl:
+    name: 'kern.{{ kern_vty }}.kbd_reboot'
+    value: 0
+    state: present
+    reload: yes
+  when: '{{ kbd_reboot.stdout }} != 0'
+  tags:
+    - patch

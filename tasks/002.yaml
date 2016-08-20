@@ -4,6 +4,7 @@
     path: '~{{ item }}/.rhosts'
   with_items: '{{ users.stdout_lines }}'
   always_run: yes
+  changed_when: false
   tags:
     - audit
 

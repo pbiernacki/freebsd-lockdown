@@ -1,0 +1,18 @@
+---
+- name: '016 | AUDIT | Unprivileged accounts should only see their current group processes'
+  command: "sysctl security.bsd.see_other_gids | awk -F: '{print $2 }' "
+  register: see_other_gids
+  changed_when: false
+  always_run: yes
+  tags:
+    - audit
+
+- name: '016 | PATCH | Unprivileged accounts should only see their current group processes'
+  sysctl:
+    name: 'security.bsd.see_other_gids'
+    value: 0
+    state: present
+    reload: yes
+  when: '{{ see_other_gids.stdout }} != 0'
+  tags:
+    - patch

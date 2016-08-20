@@ -1,0 +1,18 @@
+---
+- name: '027 | AUDIT | Insert stack guard page ahead of the growable segments'
+  command: "sysctl security.bsd.stack_guard_page | awk -F: '{print $2 }' "
+  register: stack_guard_page
+  changed_when: false
+  always_run: yes
+  tags:
+    - audit
+
+- name: '027 | PATCH | Insert stack guard page ahead of the growable segments'
+  sysctl:
+    name: 'security.bsd.stack_guard_page'
+    value: 1
+    state: present
+    reload: yes
+  when: '{{ stack_guard_page.stdout }} != 1'
+  tags:
+    - patch

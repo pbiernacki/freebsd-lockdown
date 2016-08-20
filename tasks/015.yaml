@@ -1,0 +1,18 @@
+---
+- name: '015 | AUDIT | Unprivileged accounts should only see their own processes'
+  command: "sysctl security.bsd.see_other_uids | awk -F: '{print $2 }' "
+  register: see_other_uids
+  changed_when: false
+  always_run: yes
+  tags:
+    - audit
+
+- name: '015 | PATCH | Unprivileged accounts should only see their own processes'
+  sysctl:
+    name: 'security.bsd.see_other_uids'
+    value: 0
+    state: present
+    reload: yes
+  when: '{{ see_other_uids.stdout }} != 0'
+  tags:
+    - patch

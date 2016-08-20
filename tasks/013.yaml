@@ -1,0 +1,18 @@
+---
+- name: '013 | AUDIT | sshd should only allow protocol version 2'
+  command: 'grep -q "^Protocol 2" /etc/ssh/sshd_config'
+  register: sshd_protocol_2
+  changed_when: false
+  always_run: yes
+  tags:
+    - audit
+
+- name: '013 | PATCH | sshd should only allow protocol version 2'
+  lineinfile:
+    dest: /etc/ssh/sshd_config
+    line: 'Protocol 2'
+    verify: '/usr/sbin/sshd -T -f %s > /dev/null'
+  when: '{{ sshd_protocol_2.rc != 0 }}'
+  notify: 'Restart sshd'
+  tags:
+    - patch

@@ -24,4 +24,10 @@
   register: inetd_running
   changed_when: false
   always_run: true
-  failed_when: "'does not exist' in inetd_running.stderr"
+  failed_when: inetd_running.rc == 2
+
+- name: 'Retrive console driver'
+  command: "sysctl kern.vty| awk -F: '{ print $2 }'"
+  register: kern_vty
+  changed_when: false
+  always_run: true

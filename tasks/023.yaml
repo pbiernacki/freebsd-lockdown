@@ -1,0 +1,18 @@
+---
+- name: '023 | AUDIT | Do not send RST on segments to closed TCP ports'
+  command: "sysctl net.inet.tcp.blackhole | awk -F: '{print $2 }' "
+  register: tcp_blackhole
+  changed_when: false
+  always_run: yes
+  tags:
+    - audit
+
+- name: '023 | PATCH | Do not send RST on segments to closed TCP ports'
+  sysctl:
+    name: 'net.inet.tcp.blackhole'
+    value: 2
+    state: present
+    reload: yes
+  when: '{{ tcp_blackhole.stdout }} != 2'
+  tags:
+    - patch

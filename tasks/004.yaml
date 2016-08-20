@@ -1,6 +1,6 @@
 ---
 - name: '004 | AUDIT | Disallow logging in with empty password by SSH'
-  command: "grep 'PermitEmptyPasswords yes' /etc/ssh/sshd_config"
+  command: "grep -q '^PermitEmptyPasswords yes' /etc/ssh/sshd_config"
   register: sshd_empty_passwords
   changed_when: false
   always_run: true
@@ -8,11 +8,11 @@
     - audit
 
 - name: '004 | PATCH | Disallow logging in with empty password by PAM'
-  replace:
+  lineinfile:
     dest: /etc/ssh/sshd_config
-    regexp: '^#?PermitEmptyPasswords yes'
-    replace: 'PermitEmptyPasswords no'
-  when: '{{ sshd_empty_passwords.rc == 0 }}'
+    line: 'PermitEmptyPasswords no'
+    verify: '/usr/sbin/sshd -T -f %s > /dev/null'
+  when: '{{ sshd_empty_passwords.rc != 0 }}'
   notify: 'Restart sshd'
   tags:
     - patch
