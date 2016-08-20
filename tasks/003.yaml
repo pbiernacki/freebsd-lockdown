@@ -11,6 +11,6 @@
   replace:
     dest: '{{ item }}'
     regexp: nullok
-  with_items: '{{ pam_nullok.stdout }}'
+  with_items: '{{ pam_nullok.stdout_lines }}'
   tags:
     - patch
