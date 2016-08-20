@@ -4,6 +4,7 @@
   register: pam_nullok
   changed_when: false
   always_run: true
+  failed_when: pam_nullok.rc == 2
   tags:
     - audit
 

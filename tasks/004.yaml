@@ -4,6 +4,7 @@
   register: sshd_empty_passwords
   changed_when: false
   always_run: true
+  failed_when: sshd_empty_passwords.rc == 2
   tags:
     - audit
 
