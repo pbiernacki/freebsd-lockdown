@@ -4,6 +4,7 @@
   register: sshd_protocol_2
   changed_when: false
   always_run: yes
+  failed_when: sshd_protocol_2.rc == 2
   tags:
     - audit
 
