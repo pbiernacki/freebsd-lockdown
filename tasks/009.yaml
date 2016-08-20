@@ -1,6 +1,6 @@
 ---
 - name: '009 | AUDIT | rlogind should not be running'
-  command: true
+  command: 'true'
   when: inetd_services.stdout.find('login') != -1
   changed_when: false
   always_run: true

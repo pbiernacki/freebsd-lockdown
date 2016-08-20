@@ -1,6 +1,6 @@
 ---
 - name: '011 | AUDIT | fingerd should not be running'
-  command: true
+  command: 'true'
   when: inetd_services.stdout.find('finger') != -1
   changed_when: false
   always_run: true
