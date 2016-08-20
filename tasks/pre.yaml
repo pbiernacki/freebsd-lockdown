@@ -13,14 +13,16 @@
 
 - name: 'Retrive list of enabled rc services'
   shell: "service -e | awk -F/ '{print $NF}'"
-    warn: false
+    args:
+      warn: false
   register: rc_services
   changed_when: false
   always_run: true
 
 - name: 'Check if inetd is running'
   shell: "service inetd onestatus"
-    warn: false
+    args:
+      warn: false
   register: inetd_running
   changed_when: false
   always_run: true
