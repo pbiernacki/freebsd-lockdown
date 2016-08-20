@@ -1,6 +1,6 @@
 ---
 - name: '015 | AUDIT | Unprivileged accounts should only see their own processes'
-  command: "sysctl security.bsd.see_other_uids | awk -F: '{print $2 }' "
+  shell: "sysctl security.bsd.see_other_uids | awk -F: '{print $2 }' "
   register: see_other_uids
   changed_when: false
   always_run: yes

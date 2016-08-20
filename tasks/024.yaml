@@ -1,6 +1,6 @@
 ---
 - name: '024 | AUDIT | Do not send port unreachables for refused UDP connects'
-  command: "sysctl net.inet.udp.blackhole | awk -F: '{print $2 }' "
+  shell: "sysctl net.inet.udp.blackhole | awk -F: '{print $2 }' "
   register: udp_blackhole
   changed_when: false
   always_run: yes

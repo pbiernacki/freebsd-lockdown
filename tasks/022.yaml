@@ -1,6 +1,6 @@
 ---
 - name: '022 | AUDIT | Do not send ABORT on segments to closed SCTP ports'
-  command: "sysctl net.inet.sctp.blackhole | awk -F: '{print $2 }' "
+  shell: "sysctl net.inet.sctp.blackhole | awk -F: '{print $2 }' "
   register: sctp_blackhole
   changed_when: false
   always_run: yes

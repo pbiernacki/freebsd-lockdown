@@ -1,6 +1,6 @@
 ---
 - name: '019 | AUDIT | Disable accepting source routed IP packets'
-  command: "sysctl net.inet.ip.accept_sourceroute | awk -F: '{print $2 }' "
+  shell: "sysctl net.inet.ip.accept_sourceroute | awk -F: '{print $2 }' "
   register: accept_sourceroute
   changed_when: false
   always_run: yes

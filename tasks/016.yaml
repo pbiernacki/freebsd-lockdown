@@ -1,6 +1,6 @@
 ---
 - name: '016 | AUDIT | Unprivileged accounts should only see their current group processes'
-  command: "sysctl security.bsd.see_other_gids | awk -F: '{print $2 }' "
+  shell: "sysctl security.bsd.see_other_gids | awk -F: '{print $2 }' "
   register: see_other_gids
   changed_when: false
   always_run: yes

@@ -1,6 +1,6 @@
 ---
 - name: '028 | AUDIT | Unprivileged processes may not read the kernel message buffer'
-  command: "sysctl security.bsd.unprivileged_read_msgbuf | awk -F: '{print $2 }' "
+  shell: "sysctl security.bsd.unprivileged_read_msgbuf | awk -F: '{print $2 }' "
   register: unprivileged_read_msgbuf
   changed_when: false
   always_run: yes

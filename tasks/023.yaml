@@ -1,6 +1,6 @@
 ---
 - name: '023 | AUDIT | Do not send RST on segments to closed TCP ports'
-  command: "sysctl net.inet.tcp.blackhole | awk -F: '{print $2 }' "
+  shell: "sysctl net.inet.tcp.blackhole | awk -F: '{print $2 }' "
   register: tcp_blackhole
   changed_when: false
   always_run: yes

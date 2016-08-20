@@ -1,6 +1,6 @@
 ---
 - name: '021 | AUDIT | Disable forwarding source routed IP packets'
-  command: "sysctl net.inet.ip.sourceroute | awk -F: '{print $2 }' "
+  shell: "sysctl net.inet.ip.sourceroute | awk -F: '{print $2 }' "
   register: ip_sourceroute
   changed_when: false
   always_run: yes

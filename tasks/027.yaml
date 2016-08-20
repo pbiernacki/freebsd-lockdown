@@ -1,6 +1,6 @@
 ---
 - name: '027 | AUDIT | Insert stack guard page ahead of the growable segments'
-  command: "sysctl security.bsd.stack_guard_page | awk -F: '{print $2 }' "
+  shell: "sysctl security.bsd.stack_guard_page | awk -F: '{print $2 }' "
   register: stack_guard_page
   changed_when: false
   always_run: yes

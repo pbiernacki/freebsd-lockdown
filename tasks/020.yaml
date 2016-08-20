@@ -1,6 +1,6 @@
 ---
 - name: '020 | AUDIT | Disable sending IPv4 redirects'
-  command: "sysctl net.inet.ip.redirect | awk -F: '{print $2 }' "
+  shell: "sysctl net.inet.ip.redirect | awk -F: '{print $2 }' "
   register: ip_redirect
   changed_when: false
   always_run: yes

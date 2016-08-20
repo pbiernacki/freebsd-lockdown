@@ -1,6 +1,6 @@
 ---
 - name: '025 | AUDIT | Do not accept ICMPv6 redirect messages'
-  command: "sysctl net.inet6.icmp6.rediraccept | awk -F: '{print $2 }' "
+  shell: "sysctl net.inet6.icmp6.rediraccept | awk -F: '{print $2 }' "
   register: icmp6_rediraccept
   changed_when: false
   always_run: yes

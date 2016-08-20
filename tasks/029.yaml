@@ -1,6 +1,6 @@
 ---
 - name: '029 | AUDIT | Unprivileged processes cannot create hard links to files owned by other users'
-  command: "sysctl security.bsd.hardlink_check_uid | awk -F: '{print $2 }' "
+  shell: "sysctl security.bsd.hardlink_check_uid | awk -F: '{print $2 }' "
   register: hardlink_check_uid
   changed_when: false
   always_run: yes

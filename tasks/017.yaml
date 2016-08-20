@@ -1,6 +1,6 @@
 ---
 - name: '017 | AUDIT | SUID and SGID processes should not write core files'
-  command: "sysctl kern.sugid_coredump | awk -F: '{print $2 }' "
+  shell: "sysctl kern.sugid_coredump | awk -F: '{print $2 }' "
   register: sugid_coredump
   changed_when: false
   always_run: yes

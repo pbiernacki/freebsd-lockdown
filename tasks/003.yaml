@@ -1,6 +1,6 @@
 ---
 - name: '003 | AUDIT | Disallow logging in with empty password by PAM'
-  command: "grep nullok /etc/pam.d/* | awk -F: '{print $1}'"
+  shell: "grep nullok /etc/pam.d/* | awk -F: '{print $1}'"
   register: pam_nullok
   changed_when: false
   always_run: true
