@@ -1,0 +1,5 @@
+---
+- host: localhost
+  become: yes
+  roles:
+    - freebsd-lockdown
