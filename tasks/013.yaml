@@ -11,7 +11,7 @@
   lineinfile:
     dest: /etc/ssh/sshd_config
     line: 'Protocol 2'
-    verify: '/usr/sbin/sshd -T -f %s > /dev/null'
+    verify: '/usr/sbin/sshd -T -f %s'
   when: '{{ sshd_protocol_2.rc != 0 }}'
   notify: 'Restart sshd'
   tags:

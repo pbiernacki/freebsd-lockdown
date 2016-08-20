@@ -12,7 +12,7 @@
   lineinfile:
     dest: /etc/ssh/sshd_config
     line: 'PermitEmptyPasswords no'
-    verify: '/usr/sbin/sshd -T -f %s > /dev/null'
+    verify: '/usr/sbin/sshd -T -f %s'
   when: '{{ sshd_empty_passwords.rc != 0 }}'
   notify: 'Restart sshd'
   tags:
