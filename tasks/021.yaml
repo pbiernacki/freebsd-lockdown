@@ -15,6 +15,6 @@
     reload: yes
   when:
     - "'unknown oid' not in ip_sourceroute.stderr"
-    - '{{ ip_sourceroute.stdout }} != 0'
+    - 'ip_sourceroute.stdout != 0'
   tags:
     - patch

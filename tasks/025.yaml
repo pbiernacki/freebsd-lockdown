@@ -15,6 +15,6 @@
     reload: yes
   when:
     - "'unknown oid' not in icmp6_rediraccept.stderr"
-    - '{{ icmp6_rediraccept.stdout }} != 0'
+    - 'icmp6_rediraccept.stdout != 0'
   tags:
     - patch

@@ -13,6 +13,8 @@
     value: 1
     state: present
     reload: yes
-  when: '{{ udp_blackhole.stdout }} != 1'
+  when:
+    - "'unknown oid' not in udp_blackhole.stderr"
+    - 'udp_blackhole.stdout != 1'
   tags:
     - patch

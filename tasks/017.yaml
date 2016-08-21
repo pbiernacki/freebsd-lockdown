@@ -13,6 +13,6 @@
     value: 0
     state: present
     reload: yes
-  when: '{{ sugid_coredump.stdout }} != 0'
+  when: 'sugid_coredump.stdout != 0'
   tags:
     - patch

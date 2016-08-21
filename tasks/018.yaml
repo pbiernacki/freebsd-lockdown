@@ -15,6 +15,6 @@
     reload: yes
   when:
     - "'unknown oid' not in bmcastecho.stderr"
-    - '{{ bmcastecho.stdout }} != 0'
+    - 'bmcastecho.stdout != 0'
   tags:
     - patch

@@ -1,7 +1,7 @@
 ---
 - name: '007 | AUDIT | rshd should not be running'
   command: 'true'
-  when: inetd_services.stdout.find('shell') != -1
+  when: "inetd_services.stdout.find('shell') != -1"
   changed_when: false
   always_run: true
   tags:
@@ -12,8 +12,7 @@
     dest: /etc/inetd.conf
     regexp: '^(shell.*)$'
     replace: '#\1'
-  when:
-    - inetd_services.stdout.find('shell') != -1
+  when: "inetd_services.stdout.find('shell') != -1"
   notify: 'Restart inetd'
   tags:
     - patch

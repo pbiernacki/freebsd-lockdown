@@ -4,7 +4,7 @@
   register: sshd_empty_passwords
   changed_when: false
   always_run: true
-  failed_when: sshd_empty_passwords.rc == 2
+  failed_when: 'sshd_empty_passwords.rc == 2'
   tags:
     - audit
 
@@ -13,7 +13,7 @@
     dest: /etc/ssh/sshd_config
     line: 'PermitEmptyPasswords no'
     validate: '/usr/sbin/sshd -T -f %s'
-  when: '{{ sshd_empty_passwords.rc != 0 }}'
+  when: 'sshd_empty_passwords.rc != 0'
   notify: 'Restart sshd'
   tags:
     - patch

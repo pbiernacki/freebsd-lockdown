@@ -15,6 +15,6 @@
     reload: yes
   when:
     - "'unknown oid' not in ip_redirect.stderr"
-    - '{{ ip_redirect.stdout }} != 0'
+    - 'ip_redirect.stdout != 0'
   tags:
     - patch

@@ -15,6 +15,6 @@
     reload: yes
   when:
     - "'unknown oid' not in accept_sourceroute.stderr"
-    - '{{ accept_sourceroute.stdout }} != 0'
+    - 'accept_sourceroute.stdout != 0'
   tags:
     - patch

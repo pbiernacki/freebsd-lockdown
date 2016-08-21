@@ -13,6 +13,8 @@
     value: 2
     state: present
     reload: yes
-  when: '{{ tcp_blackhole.stdout }} != 2'
+  when:
+    - "'unknown oid' not in tcp_blackhole.stderr"
+    - 'tcp_blackhole.stdout != 2'
   tags:
     - patch
