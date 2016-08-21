@@ -13,6 +13,8 @@
     value: 0
     state: present
     reload: yes
-  when: '{{ ip_sourceroute.stdout }} != 0'
+  when:
+    - "'unknown oid' not in ip_sourceroute.stderr"
+    - '{{ ip_sourceroute.stdout }} != 0'
   tags:
     - patch

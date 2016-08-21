@@ -13,6 +13,8 @@
     value: 0
     state: present
     reload: yes
-  when: '{{ icmp6_rediraccept.stdout }} != 0'
+  when:
+    - "'unknown oid' not in icmp6_rediraccept.stderr"
+    - '{{ icmp6_rediraccept.stdout }} != 0'
   tags:
     - patch

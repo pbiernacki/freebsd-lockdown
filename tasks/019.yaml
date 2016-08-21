@@ -13,6 +13,8 @@
     value: 0
     state: present
     reload: yes
-  when: '{{ accept_sourceroute.stdout }} != 0'
+  when:
+    - "'unknown oid' not in accept_sourceroute.stderr"
+    - '{{ accept_sourceroute.stdout }} != 0'
   tags:
     - patch

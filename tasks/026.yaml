@@ -13,6 +13,8 @@
     value: 0
     state: present
     reload: yes
-  when: '{{ ip6_redirect.stdout }} != 0'
+  when:
+    - "'unknown oid' not in ip6_redirect.stderr"
+    - '{{ ip6_redirect.stdout }} != 0'
   tags:
     - patch

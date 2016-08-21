@@ -14,7 +14,7 @@
     state: present
     reload: yes
   when:
+    - "'unknown oid' not in sctp_blackhole.stderr"
     - '{{ sctp_blackhole.stdout }} != 2'
-    - 'not "unknown oid" in {{ sctp_blackhole.stderr }}'
   tags:
     - patch
