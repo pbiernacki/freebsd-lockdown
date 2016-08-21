@@ -13,6 +13,8 @@
     value: 2
     state: present
     reload: yes
-  when: '{{ sctp_blackhole.stdout }} != 2'
+  when:
+    - '{{ sctp_blackhole.stdout }} != 2'
+    - 'not "unknown oid" in {{ sctp_blackhole.stderr }}'
   tags:
     - patch
